@@ -171,7 +171,41 @@
                                 </div>
 
                                 <div class="div-block-13">
+                                    
+                                    <h1>Top products by revenue</h1>
+                                    
+                                    <table id="roni">
+                                        <tr>
+                                            <th>Product ID</th>
+                                            <th>Revenue</th>
+                                            <th>Quantity</th>
+                                        </tr>
+                                        
+                                        {% for id, revenue, quantity in response %}
+                                        <tr>
+                                            <td>{{ id }}</td>
+                                            <td>{{ revenue }}</td>
+                                            <td>{{ quantity }}</td>
+                                        </tr>
+                                        {% endfor %}
+                                        
+                                    </table>
+                                    
+                                    
                                 </div>
+                                
+                                <style>
+                                    #roni td {
+                                        padding: 5px 10px 5px 10px;
+                                    }
+                                    #roni {
+                                        font-size: 24px;
+                                    }
+                                    table, th, td {
+                                        border: 1px solid grey;
+                                        border-collapse: collapse;
+                                    }
+                                </style>
                             </div>
                         </div>
                     </div>

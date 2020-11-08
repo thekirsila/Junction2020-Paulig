@@ -69,11 +69,56 @@ def lue():
     palautettava = zip(lista_virallinen_nimi, lista_virallinen_average, lista_virallinen_previous, lista_virallinen_erotus)
     return palautettava
         
+def lue2():
+    conn = snowflake.connector.connect(
+        user='dev_edw_junction_team_06',
+        password='F5AMxKoRagTi8QzPPknH9tCGhhowBu27',
+        account='paulig.west-europe.azure',
+        warehouse='WH01',
+        database='DEV_EDW_JUNCTION',
+        schema='JUNCTION_2020'
+    )
+    cur = conn.cursor()
+    lista_header = []
+    lista_amount = []
+    lista_quantity = []
+    try:
+        cur.execute("SELECT HEADER_ID, SUM(ITEM_AMT), COUNT(ITEM_QTY) FROM CAFE_POS_DATA GROUP BY HEADER_ID;")
+        for (HEADER_ID, SUM_ITEM_AMT, COUNT_ITEM_QTY) in cur:
+            lista_header.append(HEADER_ID)
+            lista_amount.append(float(SUM_ITEM_AMT))
+            lista_quantity.append(float(COUNT_ITEM_QTY))
+            
+        sanakirja = {}
+        for i in range(len(lista_header)):
 
+            sanakirja[lista_header[i-1]] = lista_amount[i-1], lista_quantity[i-1]
+
+        lista_amount.sort()
+
+        lista_virallinen_header = []
+        lista_virallinen_amount = []
+        lista_virallinen_quantity = []
+
+
+
+        for s in range(3):
+            lista = list({k: v for k, v in sorted(sanakirja.items(), key=lambda item: item[1])})
+
+            key = lista[-(s+1)]
+            lista_virallinen_header.append(key)
+            lista_virallinen_amount.append(sanakirja[key][0])
+            lista_virallinen_quantity.append(sanakirja[key][1])
+
+        palautettava = zip(lista_virallinen_header,lista_virallinen_amount, lista_virallinen_quantity)
+    finally:
+        cur.close()
+        
+    return palautettava;
+        
 # Create your views here.
 def index(request):
-    #response = query()
-    response = ""
+    response = lue2()
     return render(request, 'Pauligdashboard/index.html', {'response': response})
 
 def customers(request):
