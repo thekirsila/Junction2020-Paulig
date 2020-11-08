@@ -1,0 +1,19 @@
+{% url 'index' as index %}
+{% url 'customers' as customers %}
+{% url 'analytics' as analytics %}
+
+<div class="div-block-16 div16">
+    <a href="{{ index }}"><h1 {% if request.path == index %}class="activated"{% endif %}>Dashboard</h1></a>
+    <h1>Inventory</h1>
+    <h1>Trends</h1>
+    <h1>Products</h1>
+    <a href="{{ customers }}"><h1 {% if request.path == customers %}class="activated"{% endif %}>Customers</h1></a>
+    <a href="{{ analytics }}"><h1 {% if request.path == analytics %}class="activated"{% endif %}>Analytics</h1></a>
+    <h1>Support</h1>
+</div>
+
+<style>
+    .activated {
+        padding-left: 20px;
+    }
+</style>
