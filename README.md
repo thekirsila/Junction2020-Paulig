@@ -30,6 +30,3 @@ $ py manage.py runserver
 The project involves real-life -based and generated data, which can be found in the '/data' -folder. These have also been moved into the Snowflake provided.
 
 The main computing of the project is done in the '/DataRAMP/PauligDashboard/views.py' -file, where we give a short demonstration of what could be done with the data acquired. This data can be found in the 'trends' -tab on the website.
-
-## Disclaimer
-This proj
